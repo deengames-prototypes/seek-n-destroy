@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SeekAndDestroy.Web/bin/Debug/netcoreapp2.2/SeekAndDestroy.Web.dll",
+            "program": "${workspaceFolder}/SeekAndDestroy.Web/bin/Debug/netcoreapp3.0/SeekAndDestroy.Web.dll",
             "args": [],
             "cwd": "${workspaceFolder}/SeekAndDestroy.Web",
             "stopAtEntry": false,

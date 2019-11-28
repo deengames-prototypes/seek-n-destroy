@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SeekAndDestroy.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using SeekAndDestroy.Web.Api.Controllers;
 
 namespace SeekAndDestroy.Web.Controllers
 {
@@ -27,6 +28,8 @@ namespace SeekAndDestroy.Web.Controllers
         [Authorize]
         public IActionResult Secured()
         {
+            var apiValues = new ValuesController().Get();
+            ViewBag.apiResults = apiValues;
             return View();
         }
 
