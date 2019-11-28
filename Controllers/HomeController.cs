@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SeekAndDestroy.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SeekAndDestroy.Web.Controllers
 {
@@ -19,6 +20,12 @@ namespace SeekAndDestroy.Web.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Secured()
         {
             return View();
         }

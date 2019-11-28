@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace SeekAndDestroy.Web
 {
@@ -24,6 +27,30 @@ namespace SeekAndDestroy.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddOpenIdConnect((options) => {
+                    options.ClientId = Environment.GetEnvironmentVariable("GoogleClientId");
+                    options.ClientSecret = Environment.GetEnvironmentVariable("GoogleClientSecret");
+                    options.Authority = "https://accounts.google.com";
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.SaveTokens = true;
+                    options.Events = new OpenIdConnectEvents()
+                    {
+                        OnRedirectToIdentityProvider = (context) =>
+                        {
+                            if (context.Request.Path != "/account/external")
+                            {
+                                context.Response.Redirect("/account/login");
+                                context.HandleResponse();
+                            }
+
+                            return Task.FromResult(0);
+                        }
+                    };
+                }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +70,7 @@ namespace SeekAndDestroy.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
