@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/SeekAndDestroy.Web/SeekAndDestroy.Web.csproj",
+                "${workspaceFolder}/SeekAndDestroy.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/SeekAndDestroy.Web/SeekAndDestroy.Web.csproj",
+                "${workspaceFolder}/SeekAndDestroy.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/SeekAndDestroy.Web/SeekAndDestroy.Web.csproj",
+                "${workspaceFolder}/SeekAndDestroy.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
