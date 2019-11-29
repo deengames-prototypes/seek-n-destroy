@@ -1,0 +1,7 @@
+dist: xenial
+language: csharp
+solution: SeekAndDestroy.sln
+mono: none
+dotnet: 3.0.101
+script:
+  - dotnet build
