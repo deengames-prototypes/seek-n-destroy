@@ -1,4 +1,6 @@
-# Seek N Destroy
+# Seek and Destroy
+
+[![Build Status](https://travis-ci.org/deengames-prototypes/seek-and-destroy.svg?branch=master)](https://travis-ci.org/deengames-prototypes/seek-and-destroy)
 
 A cooperative browser-based MMO where players unite against a mechanized AI enemy.
 
