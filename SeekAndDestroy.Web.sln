@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Web", "SeekAndDesroy.Web\SeekAndDestroy.Web.csproj", "{A844AEC5-16EB-49CC-AA9C-45B884EF52F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Worker", "SeekAndDestroy.Worker\SeekAndDestroy.Worker.csproj", "{6F91922D-4FF9-4F90-A509-4E15E88C234B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{A844AEC5-16EB-49CC-AA9C-45B884EF52F4}.Release|x64.Build.0 = Release|Any CPU
 		{A844AEC5-16EB-49CC-AA9C-45B884EF52F4}.Release|x86.ActiveCfg = Release|Any CPU
 		{A844AEC5-16EB-49CC-AA9C-45B884EF52F4}.Release|x86.Build.0 = Release|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Debug|x64.Build.0 = Debug|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Debug|x86.Build.0 = Debug|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Release|x64.ActiveCfg = Release|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Release|x64.Build.0 = Release|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Release|x86.ActiveCfg = Release|Any CPU
+		{6F91922D-4FF9-4F90-A509-4E15E88C234B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
