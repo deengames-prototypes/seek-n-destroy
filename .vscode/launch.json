@@ -5,7 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": ".NET Core Launch (Worker)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/SeekAndDestroy.Worker/bin/Debug/netcoreapp3.0/SeekAndDestroy.Worker.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/SeekAndDestroy.Worker",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch (Web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -29,6 +40,12 @@
             "type": "coreclr",
             "request": "attach",
             "processId": "${command:pickProcess}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": ".NET Core Launch (Web + Worker)",
+            "configurations": [".NET Core Launch (Worker)", ".NET Core Launch (Web)"]
         }
     ]
 }
