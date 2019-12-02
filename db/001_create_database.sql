@@ -1,4 +1,4 @@
-DROP DATABASE "seek_and_destroy";
+--DROP DATABASE "seek_and_destroy";
 
 CREATE DATABASE "seek_and_destroy";
 
