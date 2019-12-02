@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SeekAndDestroy.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using SeekAndDestroy.Web.Api.Controllers;
+using System.Linq;
 
 namespace SeekAndDestroy.Web.Controllers
 {
@@ -30,6 +27,13 @@ namespace SeekAndDestroy.Web.Controllers
         {
             var apiValues = new ValuesController().Get();
             ViewBag.apiResults = apiValues;
+            // nameidentifier is the definitive ID; see: https://stackoverflow.com/a/43064583 and https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-token-and-claims
+            var oauthId = this.HttpContext.User.Identities
+                .Single(i => i.AuthenticationType == "AuthenticationTypes.Federation")
+                // Claims include: a unique identifier; first name, last name, picture, locale, and more.
+                .Claims.Single(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            
+            ViewBag.OAuthId = oauthId;
             return View();
         }
 
