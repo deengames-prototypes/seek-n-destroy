@@ -1,21 +1,24 @@
-CREATE DATABASE "seekAndDestroy";
+DROP DATABASE "seek_and_destroy";
 
-\c seekAndDestroy;
+CREATE DATABASE "seek_and_destroy";
 
-CREATE TABLE "Buildings"
+\c seek_and_destroy;
+
+CREATE TABLE "users"
 (
-    "userId" integer,
-    "crystalFactories" integer
+    "user_id" SERIAL PRIMARY KEY,
+    "oauth_id" text UNIQUE,
+    "email_address" text
 );
 
-CREATE TABLE "Resources"
+CREATE TABLE "buildings"
 (
-    "userId" integer,
+    "user_id" integer references users (user_id),
+    "crystal_factories" integer
+);
+
+CREATE TABLE "resources"
+(
+    "user_id" integer  references users (user_id),
     "crystals" integer
-);
-
-CREATE TABLE "Users"
-(
-    "userId" integer,
-    "emailAddress" text
 );
