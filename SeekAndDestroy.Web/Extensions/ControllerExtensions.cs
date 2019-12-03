@@ -40,7 +40,7 @@ namespace SeekAndDestroy.Web.Extensions
             // Claims include: a unique identifier; first name, last name, picture, locale, and more.
             // nameidentifier is the definitive ID; see: https://stackoverflow.com/a/43064583
             return controller.GetCurrentUserIdentity()
-            .Claims.Single(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                .Claims.Single(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
         }
 
         public static IConfigurationRoot GetAppConfig(this Controller controller)
