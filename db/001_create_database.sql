@@ -13,12 +13,12 @@ CREATE TABLE "users"
 
 CREATE TABLE "buildings"
 (
-    "user_id" integer references users (user_id),
+    "user_id" integer references users (user_id) on delete cascade,
     "crystal_factories" integer
 );
 
 CREATE TABLE "resources"
 (
-    "user_id" integer  references users (user_id),
+    "user_id" integer  references users (user_id) on delete cascade,
     "crystals" integer
 );
