@@ -32,16 +32,11 @@ namespace SeekAndDestroy.Web.Controllers
             var userId = this.GetCurrentUserId();
             if (userId == 0)
             {
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                var identity = this.HttpContext.User.Identities
-                    .Single(i => i.AuthenticationType == "AuthenticationTypes.Federation");
-                var oauth2Id = identity.Claims
-                    .Single(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
                 ViewBag.Welcome = "noob";
 
-                using (var connection = new NpgsqlConnection(configuration["ConnectionString"]))
+                using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
                 {
-                    connection.Execute("INSERT INTO users (oauth_id) VALUES (@oauth2id);", new { oauth2id = oauth2Id });
+                    connection.Execute("INSERT INTO users (oauth_id) VALUES (@oauth2id);", new { oauth2id = this.GetCurrentUserOAuth2Id() });
                     userId = this.GetCurrentUserId();
 
                     connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
