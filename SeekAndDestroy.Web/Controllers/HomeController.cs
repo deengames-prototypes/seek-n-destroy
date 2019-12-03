@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System.Linq;
+using SeekAndDestroy.Web.Api.Controllers;
 
 namespace SeekAndDestroy.Web.Controllers
 {
@@ -29,19 +30,12 @@ namespace SeekAndDestroy.Web.Controllers
         [Authorize]
         public IActionResult SignIn()
         {
-            var userId = this.GetCurrentUserId();
+            var userController = new UserController(this.GetCurrentUserIdentity());
+            var userId = userController.GetUserId();
             if (userId == 0)
             {
+                userController.CreateNewUser();
                 ViewBag.Welcome = "noob";
-
-                using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
-                {
-                    connection.Execute("INSERT INTO users (oauth_id) VALUES (@oauth2id);", new { oauth2id = this.GetCurrentUserOAuth2Id() });
-                    userId = this.GetCurrentUserId();
-
-                    connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
-                    connection.Execute("INSERT INTO resources VALUES (@user_id, @starting_crystals);", new { user_id = userId, starting_crystals = 0});
-                }
             }
             else
             {
