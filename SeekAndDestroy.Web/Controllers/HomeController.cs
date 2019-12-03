@@ -22,9 +22,17 @@ namespace SeekAndDestroy.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Secured()
+        public IActionResult SignIn()
         {
-            ViewBag.OAuthId = this.GetCurrentUserId();
+            var userId = this.GetCurrentUserId();
+            if (userId == 0)
+            {
+                ViewBag.Welcome = "noob";
+            }
+            else
+            {
+                ViewBag.Welcome = "User " + userId;
+            }
             return View();
         }
 
