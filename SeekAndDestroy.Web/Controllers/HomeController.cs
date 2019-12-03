@@ -7,12 +7,12 @@ using SeekAndDestroy.Web.Extensions;
 using Dapper;
 using Npgsql;
 using System.Linq;
+using SeekAndDestroy.Web.Api.Controllers;
 
 namespace SeekAndDestroy.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
         private readonly ILogger<HomeController> _logger;
 
@@ -29,21 +29,12 @@ namespace SeekAndDestroy.Web.Controllers
         [Authorize]
         public IActionResult SignIn()
         {
-            var userId = this.GetCurrentUserId();
+            var userController = new UserController(this.GetCurrentUserIdentity());
+            var userId = userController.GetUserId();
             if (userId == 0)
             {
-                
+                userController.CreateNewUser();
                 ViewBag.Welcome = "noob";
-                var emailAddress = this.GetCurrentUserIdentity().Claims.Single(c => c.Type == EMAIL_ADDRESS_CLAIM).Value;
-
-                using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
-                {
-                    connection.Execute("INSERT INTO users (oauth_id, email_address) VALUES (@oauth2id, @emailAddress);", new { oauth2id = this.GetCurrentUserOAuth2Id(), emailAddress });
-                    userId = this.GetCurrentUserId();
-
-                    connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
-                    connection.Execute("INSERT INTO resources VALUES (@user_id, @starting_crystals);", new { user_id = userId, starting_crystals = 0});
-                }
             }
             else
             {
