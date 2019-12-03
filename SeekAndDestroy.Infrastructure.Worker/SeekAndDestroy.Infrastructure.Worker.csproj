@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <UserSecretsId>dotnet-SeekAndDestroy.Worker-181E4CE2-C52C-4C5C-8463-CA1A0FEF5415</UserSecretsId>
+    <UserSecretsId>dotnet-SeekAndDestroy.Infrastructure.Worker-181E4CE2-C52C-4C5C-8463-CA1A0FEF5415</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

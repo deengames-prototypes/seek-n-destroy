@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace SeekAndDestroy.Worker
+namespace SeekAndDestroy.Infrastructure.Worker
 {
     public class Worker : BackgroundService
     {

@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "SeekAndDestroy.Worker": {
+    "SeekAndDestroy.Infrastructure.Worker": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

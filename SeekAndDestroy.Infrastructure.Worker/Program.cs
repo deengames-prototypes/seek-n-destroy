@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace SeekAndDestroy.Worker
+namespace SeekAndDestroy.Infrastructure.Worker
 {
     public class Program
     {
