@@ -4,6 +4,11 @@ using Microsoft.Extensions.Logging;
 using SeekAndDestroy.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using SeekAndDestroy.Web.Extensions;
+using Dapper;
+using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
+using System.Linq;
 
 namespace SeekAndDestroy.Web.Controllers
 {
@@ -27,11 +32,21 @@ namespace SeekAndDestroy.Web.Controllers
             var userId = this.GetCurrentUserId();
             if (userId == 0)
             {
+            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                var identity = this.HttpContext.User.Identities
+                    .Single(i => i.AuthenticationType == "AuthenticationTypes.Federation");
+                var oauth2Id = identity.Claims
+                    .Single(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
                 ViewBag.Welcome = "noob";
+
+                using (var connection = new NpgsqlConnection(configuration["ConnectionString"]))
+                {
+                    connection.Execute("INSERT INTO users (oauth_id) VALUES (@oauth2id);", new { oauth2id = oauth2Id });
+                }
             }
             else
             {
-                ViewBag.Welcome = "User " + userId;
+                ViewBag.Welcome = $"User {userId}";
             }
             return View();
         }
