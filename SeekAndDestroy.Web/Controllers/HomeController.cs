@@ -5,8 +5,6 @@ using SeekAndDestroy.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using SeekAndDestroy.Web.Extensions;
 using Dapper;
-using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System.Linq;
 using SeekAndDestroy.Web.Api.Controllers;
@@ -15,6 +13,7 @@ namespace SeekAndDestroy.Web.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

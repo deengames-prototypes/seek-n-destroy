@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Worker", "SeekAndDestroy.Worker\SeekAndDestroy.Worker.csproj", "{6F91922D-4FF9-4F90-A509-4E15E88C234B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Infrastructure.Worker", "SeekAndDestroy.Infrastructure.Worker\SeekAndDestroy.Infrastructure.Worker.csproj", "{6F91922D-4FF9-4F90-A509-4E15E88C234B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Web", "SeekAndDestroy.Web\SeekAndDestroy.Web.csproj", "{2DA30FC8-AA9B-4361-B675-30F3BBC9AAEC}"
 EndProject

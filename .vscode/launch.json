@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SeekAndDestroy.Worker/bin/Debug/netcoreapp3.0/SeekAndDestroy.Worker.dll",
+            "program": "${workspaceFolder}/SeekAndDestroy.Infrastructure.Worker/bin/Debug/netcoreapp3.0/SeekAndDestroy.Infrastructure.Worker.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SeekAndDestroy.Worker",
+            "cwd": "${workspaceFolder}/SeekAndDestroy.Infrastructure.Worker",
             "stopAtEntry": false,
             "console": "internalConsole"
         },

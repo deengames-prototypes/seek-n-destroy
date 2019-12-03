@@ -18,6 +18,7 @@ namespace SeekAndDestroy.Web.Api.Controllers
     public class UserController : ControllerBase
     {
         private ClaimsIdentity identity;
+        private const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
         public UserController(ClaimsIdentity userIdentity)
         {
             identity = userIdentity;
@@ -29,7 +30,8 @@ namespace SeekAndDestroy.Web.Api.Controllers
         {
             using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
                 {
-                    connection.Execute("INSERT INTO users (oauth_id) VALUES (@oauth2id);", new { oauth2id = this.GetOAuth2Id() });
+                    var emailAddress = identity.Claims.Single(c => c.Type == EMAIL_ADDRESS_CLAIM).Value;
+                    connection.Execute("INSERT INTO users (oauth_id, email_address) VALUES (@oauth2id, @emailAddress);", new { oauth2id = this.GetOAuth2Id(), emailAddress });
                     var userId = this.GetUserId();
 
                     connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
