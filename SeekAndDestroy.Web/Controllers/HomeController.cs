@@ -4,9 +4,6 @@ using Microsoft.Extensions.Logging;
 using SeekAndDestroy.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using SeekAndDestroy.Web.Extensions;
-using Dapper;
-using Npgsql;
-using System.Linq;
 using SeekAndDestroy.Web.Api.Controllers;
 
 namespace SeekAndDestroy.Web.Controllers

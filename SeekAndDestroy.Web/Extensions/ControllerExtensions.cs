@@ -1,8 +1,5 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Dapper;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
 using System.Security.Claims;
 
 namespace SeekAndDestroy.Web.Extensions
