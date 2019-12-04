@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Infrastructure.Web", "SeekAndDestroy.Infrastructure.Web\SeekAndDestroy.Infrastructure.Web.csproj", "{2DA30FC8-AA9B-4361-B675-30F3BBC9AAEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeekAndDestroy.Infrastructure.Web.Tests", "SeekAndDestroy.Infrastructure.Web.Tests\SeekAndDestroy.Infrastructure.Web.Tests.csproj", "{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,5 +58,17 @@ Global
 		{2DA30FC8-AA9B-4361-B675-30F3BBC9AAEC}.Release|x64.Build.0 = Release|Any CPU
 		{2DA30FC8-AA9B-4361-B675-30F3BBC9AAEC}.Release|x86.ActiveCfg = Release|Any CPU
 		{2DA30FC8-AA9B-4361-B675-30F3BBC9AAEC}.Release|x86.Build.0 = Release|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Debug|x64.Build.0 = Debug|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Debug|x86.Build.0 = Debug|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Release|x64.ActiveCfg = Release|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Release|x64.Build.0 = Release|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Release|x86.ActiveCfg = Release|Any CPU
+		{E2F45EF3-1820-4090-AF19-74D9C6D65E9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

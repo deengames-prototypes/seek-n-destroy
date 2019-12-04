@@ -4,8 +4,9 @@ solution: SeekAndDestroy.sln
 mono: none
 dotnet: 3.0.101
 script:
-  - dotnet build
+  - dotnet test
 
+# Send message via web-hooks for Discord and friends
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
