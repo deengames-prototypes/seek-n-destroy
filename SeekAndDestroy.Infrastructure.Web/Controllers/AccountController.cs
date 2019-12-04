@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SeekAndDestroy.Web.Controllers
+namespace SeekAndDestroy.Infrastructure.Web.Controllers
 {
     public class AccountController : Controller
     {

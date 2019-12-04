@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SeekAndDestroy.Web.Models;
+using SeekAndDestroy.Infrastructure.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using SeekAndDestroy.Web.Extensions;
-using SeekAndDestroy.Web.Api.Controllers;
+using SeekAndDestroy.Infrastructure.Web.Extensions;
+using SeekAndDestroy.Infrastructure.Web.Api.Controllers;
 
-namespace SeekAndDestroy.Web.Controllers
+namespace SeekAndDestroy.Infrastructure.Web.Controllers
 {
     public class HomeController : Controller
     {

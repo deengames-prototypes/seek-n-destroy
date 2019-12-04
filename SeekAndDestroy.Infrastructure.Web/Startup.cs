@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Extensions.Hosting;
 
-namespace SeekAndDestroy.Web
+namespace SeekAndDestroy.Infrastructure.Web
 {
     public class Startup
     {

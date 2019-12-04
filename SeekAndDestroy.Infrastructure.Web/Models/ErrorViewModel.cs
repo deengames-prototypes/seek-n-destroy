@@ -1,6 +1,6 @@
 using System;
 
-namespace SeekAndDestroy.Web.Models
+namespace SeekAndDestroy.Infrastructure.Web.Models
 {
     public class ErrorViewModel
     {

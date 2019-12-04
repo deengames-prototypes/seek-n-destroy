@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace SeekAndDestroy.Web.Extensions
+namespace SeekAndDestroy.Infrastructure.Web.Extensions
 {
     public static class ControllerExtensions
     {

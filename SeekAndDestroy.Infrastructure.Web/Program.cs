@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace SeekAndDestroy.Web
+namespace SeekAndDestroy.Infrastructure.Web
 {
     public class Program
     {

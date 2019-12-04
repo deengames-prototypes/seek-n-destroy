@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-namespace SeekAndDestroy.Web.Api.Controllers
+namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

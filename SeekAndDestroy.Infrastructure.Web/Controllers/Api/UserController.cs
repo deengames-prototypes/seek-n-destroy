@@ -6,7 +6,7 @@ using Dapper;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 
-namespace SeekAndDestroy.Web.Api.Controllers
+namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
