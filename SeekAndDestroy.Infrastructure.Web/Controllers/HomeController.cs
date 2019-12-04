@@ -5,17 +5,19 @@ using SeekAndDestroy.Infrastructure.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using SeekAndDestroy.Infrastructure.Web.Extensions;
 using SeekAndDestroy.Infrastructure.Web.Api.Controllers;
+using SeekAndDestroy.Core.DataAccess;
 
 namespace SeekAndDestroy.Infrastructure.Web.Controllers
 {
     public class HomeController : Controller
     {
-
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserRepository _userRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
         {
             _logger = logger;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index()
@@ -26,7 +28,8 @@ namespace SeekAndDestroy.Infrastructure.Web.Controllers
         [Authorize]
         public IActionResult SignIn()
         {
-            var userController = new UserController(this.GetCurrentUserIdentity());
+            var userController = new UserController(this.GetCurrentUserIdentity(), _userRepository);
+
             var userId = userController.GetUserId();
             if (userId == 0)
             {

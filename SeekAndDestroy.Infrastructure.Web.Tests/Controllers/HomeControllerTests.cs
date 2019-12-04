@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using SeekAndDestroy.Core.DataAccess;
 using SeekAndDestroy.Infrastructure.Web.Controllers;
 
 namespace SeekAndDestroy.Infrastructure.Web.Tests.Controllers
@@ -18,7 +19,8 @@ namespace SeekAndDestroy.Infrastructure.Web.Tests.Controllers
         [Test]
         public void HelloWorld()
         {
-            var controller = new HomeController(new Mock<ILogger<HomeController>>().Object);
+            var userRepository = new Mock<IUserRepository>();
+            var controller = new HomeController(new Mock<ILogger<HomeController>>().Object, userRepository.Object);
 
             // Spoof ID
             var identities = new List<ClaimsIdentity>()
@@ -36,6 +38,7 @@ namespace SeekAndDestroy.Infrastructure.Web.Tests.Controllers
                 User = new System.Security.Claims.ClaimsPrincipal(identities)
             };
 
+            // Modified from https://stackoverflow.com/a/41400246/8641842
             controller.ControllerContext = new ControllerContext();
             controller.ControllerContext.HttpContext = httpContext;
             //controller.ControllerContext.HttpContext.Request.Headers["device-id"] = "20317";

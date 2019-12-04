@@ -5,6 +5,7 @@ using Npgsql;
 using Dapper;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
+using SeekAndDestroy.Core.DataAccess;
 
 namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
 {
@@ -15,23 +16,25 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
         private const string OAUTH_ID_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
         private const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
-        private ClaimsIdentity identity;
+        private ClaimsIdentity _identity;
+        private IUserRepository _userRepository;
 
-        public UserController(ClaimsIdentity userIdentity)
+        public UserController(ClaimsIdentity identity, IUserRepository userRepository)
         {
-            identity = userIdentity;
+            _identity = identity;
+            _userRepository = userRepository;
         }
 
         [Authorize]
         [HttpPost]
         public void CreateNewUser()
         {
+            var oauthId = _identity.Claims.Single(c => c.Type == OAUTH_ID_CLAIM).Value;
+            var emailAddress = _identity.Claims.Single(c => c.Type == EMAIL_ADDRESS_CLAIM).Value;
+
             using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
                 {
-                    var emailAddress = identity.Claims.Single(c => c.Type == EMAIL_ADDRESS_CLAIM).Value;
-                    connection.Execute("INSERT INTO users (oauth_id, email_address) VALUES (@oauth2id, @emailAddress);", new { oauth2id = this.GetOAuth2Id(), emailAddress });
-                    var userId = this.GetUserId();
-
+                    var userId = _userRepository.CreateUser(oauthId, emailAddress);
                     connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
                     connection.Execute("INSERT INTO resources VALUES (@user_id, @starting_crystals);", new { user_id = userId, starting_crystals = 0});
                 }
@@ -42,7 +45,7 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
         {
             // Claims include: a unique identifier; first name, last name, picture, locale, and more.
             // nameidentifier is the definitive ID; see: https://stackoverflow.com/a/43064583
-            return identity.Claims.Single(c => c.Type == OAUTH_ID_CLAIM).Value;
+            return _identity.Claims.Single(c => c.Type == OAUTH_ID_CLAIM).Value;
         }
 
         /// <summary>
