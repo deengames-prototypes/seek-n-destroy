@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
+using SeekAndDestroy.Infrastructure.Web.Extensions;
 
 namespace SeekAndDestroy.Infrastructure.Web
 {
@@ -27,29 +29,8 @@ namespace SeekAndDestroy.Infrastructure.Web
             services.AddControllersWithViews();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddOpenIdConnect((options) => {
-                    options.Scope.Add("email");
-                    options.ClientId = Environment.GetEnvironmentVariable("GoogleClientId");
-                    options.ClientSecret = Environment.GetEnvironmentVariable("GoogleClientSecret");
-                    options.Authority = "https://accounts.google.com";
-                    options.ResponseType = OpenIdConnectResponseType.Code;
-                    options.GetClaimsFromUserInfoEndpoint = true;
-                    options.SaveTokens = true;
-                    options.Events = new OpenIdConnectEvents()
-                    {
-                        OnRedirectToIdentityProvider = (context) =>
-                        {
-                            if (context.Request.Path != "/account/external")
-                            {
-                                context.Response.Redirect("/account/login");
-                                context.HandleResponse();
-                            }
-
-                            return Task.FromResult(0);
-                        }
-                    };
-                }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
+            this.ConfigureOpenIdConnect(services);
+            this.ConfigureDependencyInjection(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +59,38 @@ namespace SeekAndDestroy.Infrastructure.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void ConfigureDependencyInjection(IServiceCollection services)
+        {
+            
+        }
+
+        private void ConfigureOpenIdConnect(IServiceCollection services)
+        {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddOpenIdConnect((options) => {
+                    options.Scope.Add("email");
+                    options.ClientId = Environment.GetEnvironmentVariable("GoogleClientId");
+                    options.ClientSecret = Environment.GetEnvironmentVariable("GoogleClientSecret");
+                    options.Authority = "https://accounts.google.com";
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.SaveTokens = true;
+                    options.Events = new OpenIdConnectEvents()
+                    {
+                        OnRedirectToIdentityProvider = (context) =>
+                        {
+                            if (context.Request.Path != "/account/external")
+                            {
+                                context.Response.Redirect("/account/login");
+                                context.HandleResponse();
+                            }
+
+                            return Task.FromResult(0);
+                        }
+                    };
+                }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
         }
     }
 }

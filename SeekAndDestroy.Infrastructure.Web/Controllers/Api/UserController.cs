@@ -12,8 +12,11 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private ClaimsIdentity identity;
+        private const string OAUTH_ID_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
         private const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+
+        private ClaimsIdentity identity;
+
         public UserController(ClaimsIdentity userIdentity)
         {
             identity = userIdentity;
@@ -39,7 +42,7 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
         {
             // Claims include: a unique identifier; first name, last name, picture, locale, and more.
             // nameidentifier is the definitive ID; see: https://stackoverflow.com/a/43064583
-            return identity.Claims.Single(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            return identity.Claims.Single(c => c.Type == OAUTH_ID_CLAIM).Value;
         }
 
         /// <summary>

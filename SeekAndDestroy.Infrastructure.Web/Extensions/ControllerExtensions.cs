@@ -6,7 +6,7 @@ namespace SeekAndDestroy.Infrastructure.Web.Extensions
 {
     public static class ControllerExtensions
     {
-        public static ClaimsIdentity GetCurrentUserIdentity(this Controller controller)
+        public static ClaimsIdentity GetCurrentUserIdentity(this ControllerBase controller)
         {
             return controller.HttpContext.User.Identities
                 .Single(i => i.AuthenticationType == "AuthenticationTypes.Federation");
