@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SeekAndDestroy.Worker/bin/Debug/netcoreapp3.0/SeekAndDestroy.Worker.dll",
+            "program": "${workspaceFolder}/SeekAndDestroy.Infrastructure.Worker/bin/Debug/netcoreapp3.0/SeekAndDestroy.Infrastructure.Worker.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SeekAndDestroy.Worker",
+            "cwd": "${workspaceFolder}/SeekAndDestroy.Infrastructure.Worker",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
@@ -20,9 +20,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/SeekAndDestroy.Web/bin/Debug/netcoreapp3.0/SeekAndDestroy.Web.dll",
+            "program": "${workspaceFolder}/SeekAndDestroy.Infrastructure.Web/bin/Debug/netcoreapp3.0/SeekAndDestroy.Infrastructure.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SeekAndDestroy.Web",
+            "cwd": "${workspaceFolder}/SeekAndDestroy.Infrastructure.Web",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
