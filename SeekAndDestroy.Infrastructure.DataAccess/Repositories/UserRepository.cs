@@ -32,19 +32,18 @@ namespace SeekAndDestroy.Infrastructure.DataAccess.Repositories
             }
         }
 
+        // TODO: move into Resources repository
         public void IncrementAllUserCrystals()
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
-                var rows = connection.Query("SELECT * FROM users");
-                foreach(IDictionary<string, object> row in rows)
+                var rows = connection.Query<int>("SELECT user_id FROM users");
+                foreach(var userId in rows)
                 {
-                    var userId = row["user_id"];
-
                     var numFactories = connection.ExecuteScalar<int>("SELECT crystal_factories FROM buildings WHERE user_id = @userId", new { userId });
                     var currentCrystals = connection.ExecuteScalar<int>("SELECT crystals FROM resources WHERE user_id = @userId", new { userId });
 
-                    connection.Execute("UPDATE users SET crystals = @newCrystals WHERE user_id = @userId", 
+                    connection.Execute("UPDATE resources SET crystals = crystals + @newCrystals WHERE user_id = @userId", 
                         new { newCrystals=currentCrystals + numFactories, userId });
                 }
             }
