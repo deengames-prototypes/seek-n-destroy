@@ -11,5 +11,10 @@ namespace SeekAndDestroy.Core.DataAccess
         /// Get a user's ID. Probably returns zero if the user isn't in the DB.
         /// </summary>
         int GetUserId(string emailAddress);
+
+        /// <summary>
+        /// Increment all user's crystals depending on the number of crystal factories.
+        /// </summary>
+        void IncrementAllUserCrystals();
     }
 }

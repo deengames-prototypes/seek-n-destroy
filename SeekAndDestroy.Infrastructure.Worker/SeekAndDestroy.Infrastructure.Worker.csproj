@@ -11,5 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SeekAndDestroy.Core\SeekAndDestroy.Core.csproj" />
+    <ProjectReference Include="..\SeekAndDestroy.Infrastructure.DataAccess\SeekAndDestroy.Infrastructure.DataAccess.csproj" />
   </ItemGroup>
 </Project>

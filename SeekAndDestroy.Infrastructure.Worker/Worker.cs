@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SeekAndDestroy.Core.Game;
+using SeekAndDestroy.Infrastructure.DataAccess.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,8 @@ namespace SeekAndDestroy.Infrastructure.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var ticker = new Ticker();
+            var userRepository = new UserRepository(this.Config()["ConnectionString"]);
+            var ticker = new Ticker(userRepository);
             while (!stoppingToken.IsCancellationRequested)
             {
                 ticker.DoTick();

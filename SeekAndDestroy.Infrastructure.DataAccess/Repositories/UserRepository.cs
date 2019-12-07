@@ -1,6 +1,7 @@
 using SeekAndDestroy.Core.DataAccess;
 using Dapper;
 using Npgsql;
+using System.Collections.Generic;
 
 namespace SeekAndDestroy.Infrastructure.DataAccess.Repositories
 {
@@ -28,6 +29,24 @@ namespace SeekAndDestroy.Infrastructure.DataAccess.Repositories
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 return connection.ExecuteScalar<int>("SELECT user_id FROM users WHERE email_address = @emailAddress;", new { emailAddress });
+            }
+        }
+
+        public void IncrementAllUserCrystals()
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                var rows = connection.Query("SELECT * FROM users");
+                foreach(IDictionary<string, object> row in rows)
+                {
+                    var userId = row["user_id"];
+
+                    var numFactories = connection.ExecuteScalar<int>("SELECT crystal_factories FROM buildings WHERE user_id = @userId", new { userId });
+                    var currentCrystals = connection.ExecuteScalar<int>("SELECT crystals FROM resources WHERE user_id = @userId", new { userId });
+
+                    connection.Execute("UPDATE users SET crystals = @newCrystals WHERE user_id = @userId", 
+                        new { newCrystals=currentCrystals + numFactories, userId });
+                }
             }
         }
     }
