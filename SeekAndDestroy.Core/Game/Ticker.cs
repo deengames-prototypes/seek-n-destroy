@@ -14,7 +14,7 @@ namespace SeekAndDestroy.Core.Game
         public void DoTick()
         {
             Console.WriteLine("!");
-            _userRepository.IncrementAllUserCrystals();
+            _userRepository.IncrementAllUserResourcesBasedOnBuildings();
         }
     }
 }
