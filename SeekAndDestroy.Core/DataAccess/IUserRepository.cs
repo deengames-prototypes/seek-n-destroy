@@ -13,8 +13,8 @@ namespace SeekAndDestroy.Core.DataAccess
         int GetUserId(string emailAddress);
 
         /// <summary>
-        /// Increment all user's crystals depending on the number of crystal factories.
+        /// Increment all user's resources depending on the number of buildings.
         /// </summary>
-        void IncrementAllUserCrystals();
+        void IncrementAllUserResourcesBasedOnBuildings();
     }
 }

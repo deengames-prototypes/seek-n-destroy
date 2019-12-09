@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SeekAndDestroy.Core.Game;
@@ -22,7 +19,7 @@ namespace SeekAndDestroy.Infrastructure.Worker
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
             // Run on execute
-            this.ExecuteAsync(new CancellationToken());
+            this.ExecuteAsync(new CancellationToken()).RunSynchronously();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

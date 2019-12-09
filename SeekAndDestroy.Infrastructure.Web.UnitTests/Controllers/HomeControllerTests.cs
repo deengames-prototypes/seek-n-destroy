@@ -8,7 +8,7 @@ using NUnit.Framework;
 using SeekAndDestroy.Core.DataAccess;
 using SeekAndDestroy.Infrastructure.Web.Controllers;
 
-namespace SeekAndDestroy.Infrastructure.Web.Tests.Controllers
+namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
 {
     [TestFixture]
     public class HomeControllerTests
