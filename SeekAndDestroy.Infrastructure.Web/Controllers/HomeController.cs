@@ -13,11 +13,15 @@ namespace SeekAndDestroy.Infrastructure.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserRepository _userRepository;
+        private readonly IBuildingsRepository _buildingsRepository;
+        private readonly IResourcesRepository _resourcesRepository;
 
-        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
+        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, IBuildingsRepository buildingsRepository, IResourcesRepository resourcesRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _buildingsRepository = buildingsRepository;
+            _resourcesRepository = resourcesRepository;
         }
 
         public IActionResult Index()
@@ -28,7 +32,7 @@ namespace SeekAndDestroy.Infrastructure.Web.Controllers
         [Authorize]
         public IActionResult SignIn()
         {
-            var userController = new UserController(this.GetCurrentUserIdentity(), _userRepository);
+            var userController = new UserController(this.GetCurrentUserIdentity(), _userRepository, _buildingsRepository, _resourcesRepository);
 
             var userId = userController.GetUserId();
             if (userId == 0)

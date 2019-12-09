@@ -20,7 +20,10 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
         public void SignInCallsCreateNewUserOnApiControllerIfUserIdIsZero()
         {
             var userRepository = new Mock<IUserRepository>();
-            var controller = new HomeController(new Mock<ILogger<HomeController>>().Object, userRepository.Object);
+            var buildingsRepository = new Mock<IBuildingsRepository>();
+            var resourcesRepository = new Mock<IResourcesRepository>();
+
+            var controller = new HomeController(new Mock<ILogger<HomeController>>().Object, userRepository.Object, buildingsRepository.Object, resourcesRepository.Object);
 
             // Spoof ID
             var identities = new List<ClaimsIdentity>()
@@ -41,7 +44,6 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
             // Modified from https://stackoverflow.com/a/41400246/8641842
             controller.ControllerContext = new ControllerContext();
             controller.ControllerContext.HttpContext = httpContext;
-            //controller.ControllerContext.HttpContext.Request.Headers["device-id"] = "20317";
 
             controller.SignIn();
         }

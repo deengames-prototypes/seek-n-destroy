@@ -1,7 +1,6 @@
 using SeekAndDestroy.Core.DataAccess;
 using Dapper;
 using Npgsql;
-using System.Collections.Generic;
 
 namespace SeekAndDestroy.Infrastructure.DataAccess.Repositories
 {

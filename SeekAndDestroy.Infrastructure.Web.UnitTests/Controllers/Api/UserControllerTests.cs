@@ -1,3 +1,7 @@
+using NUnit.Framework;
+using Moq;
+using SeekAndDestroy.Infrastructure.Web.Controllers;
+
 namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
 {
     [TestFixture]

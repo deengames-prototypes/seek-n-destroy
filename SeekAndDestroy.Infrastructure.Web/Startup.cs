@@ -9,8 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Extensions.Hosting;
-using System.Security.Claims;
-using SeekAndDestroy.Infrastructure.Web.Extensions;
 using SeekAndDestroy.Core.DataAccess;
 using SeekAndDestroy.Infrastructure.DataAccess.Repositories;
 
@@ -68,6 +66,8 @@ namespace SeekAndDestroy.Infrastructure.Web
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
             services.AddTransient<IUserRepository, UserRepository>((provider) => new UserRepository(config["ConnectionString"]));
+            services.AddTransient<IBuildingsRepository, BuildingsRepository>((provider) => new BuildingsRepository(config["ConnectionString"]));
+            services.AddTransient<IResourcesRepository, ResourcesRepository>((provider) => new ResourcesRepository(config["ConnectionString"]));
         }
 
         private void ConfigureOpenIdConnect(IServiceCollection services)

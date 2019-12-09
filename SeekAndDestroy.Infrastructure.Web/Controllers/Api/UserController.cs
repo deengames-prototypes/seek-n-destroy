@@ -18,12 +18,16 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
 
         private ClaimsIdentity _identity;
         private IUserRepository _userRepository;
+        private IBuildingsRepository _buildingsRepository;
+        private IResourcesRepository _resourcesRepository;
         private readonly IConfiguration _configuration;
 
-        public UserController(ClaimsIdentity identity, IUserRepository userRepository)
+        public UserController(ClaimsIdentity identity, IUserRepository userRepository, IBuildingsRepository buildingsRepository, IResourcesRepository resourcesRepository)
         {
             _identity = identity;
             _userRepository = userRepository;
+            _buildingsRepository = buildingsRepository;
+            _resourcesRepository = resourcesRepository;
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         }
 
@@ -34,14 +38,9 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
             var oauthId = _identity.Claims.Single(c => c.Type == OAUTH_ID_CLAIM).Value;
             var emailAddress = _identity.Claims.Single(c => c.Type == EMAIL_ADDRESS_CLAIM).Value;
 
-            using (var connection = new NpgsqlConnection(_configuration["ConnectionString"]))
-                {
-                    var userId = _userRepository.CreateUser(oauthId, emailAddress);
-                    // TODO: buildings repo
-                    connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
-                    // TODO: resoures repo
-                    connection.Execute("INSERT INTO resources VALUES (@user_id, @starting_crystals);", new { user_id = userId, starting_crystals = 0});
-                }
+            var userId = _userRepository.CreateUser(oauthId, emailAddress);
+            _buildingsRepository.InitializeForUser(userId);
+            _resourcesRepository.InitializeForUser(userId);
         }
 
         // TODO: move these methods somewhere more appropriate
