@@ -17,7 +17,7 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
         private const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
         [Test]
-        public void HelloWorld()
+        public void SignInCallsCreateNewUserOnApiControllerIfUserIdIsZero()
         {
             var userRepository = new Mock<IUserRepository>();
             var controller = new HomeController(new Mock<ILogger<HomeController>>().Object, userRepository.Object);
@@ -44,6 +44,12 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
             //controller.ControllerContext.HttpContext.Request.Headers["device-id"] = "20317";
 
             controller.SignIn();
+        }
+
+        [Test]
+        public void SignInDoesNotCallCreateNewUserOnApiControllerIfUserIdIsZero()
+        {
+            
         }
     }
 }

@@ -18,11 +18,13 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
 
         private ClaimsIdentity _identity;
         private IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
         public UserController(ClaimsIdentity identity, IUserRepository userRepository)
         {
             _identity = identity;
             _userRepository = userRepository;
+            _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         }
 
         [Authorize]
@@ -32,10 +34,12 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
             var oauthId = _identity.Claims.Single(c => c.Type == OAUTH_ID_CLAIM).Value;
             var emailAddress = _identity.Claims.Single(c => c.Type == EMAIL_ADDRESS_CLAIM).Value;
 
-            using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
+            using (var connection = new NpgsqlConnection(_configuration["ConnectionString"]))
                 {
                     var userId = _userRepository.CreateUser(oauthId, emailAddress);
+                    // TODO: buildings repo
                     connection.Execute("INSERT INTO buildings VALUES (@user_id, @starting_crystal_factories);", new { user_id = userId, starting_crystal_factories = 1});
+                    // TODO: resoures repo
                     connection.Execute("INSERT INTO resources VALUES (@user_id, @starting_crystals);", new { user_id = userId, starting_crystals = 0});
                 }
         }
@@ -60,17 +64,12 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
             var oauthId = this.GetOAuth2Id();
             
             // Step 2: cross-reference the Users table to get our ID
-            // TODO: proper data-access layers (repository pattern?)
-            using (var connection = new NpgsqlConnection(this.GetAppConfig()["ConnectionString"]))
+            using (var connection = new NpgsqlConnection(_configuration["ConnectionString"]))
             {
+                // TODO: user repository pl0x
                 var userId = connection.ExecuteScalar<int>("SELECT user_id FROM users WHERE oauth_id = @oauthId", new { oauthId });
                 return userId;
             }
-        }
-
-        public IConfigurationRoot GetAppConfig()
-        {
-            return new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         }
     }
 }
