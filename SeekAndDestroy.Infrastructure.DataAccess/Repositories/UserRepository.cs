@@ -31,8 +31,11 @@ namespace SeekAndDestroy.Infrastructure.DataAccess.Repositories
             }
         }
 
-        // TODO: move into Resources repository
-        public void IncrementAllUserResourcesBasedOnBuildings()
+        // TODO: perhaps discuss this further. This doesn't belong here, as it touches three tables.
+        // It should quite possibly move to the resources repository (since it's primarily about
+        // incrementing resources), or optionally, should be extracted into three calls per-repository,
+        // and then stitched together in a context somewhere. ¯\_(ツ)_/¯
+        public void IncrementAllUsersResourcesBasedOnBuildings()
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {

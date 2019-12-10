@@ -15,6 +15,6 @@ namespace SeekAndDestroy.Core.DataAccess
         /// <summary>
         /// Increment all user's resources depending on the number of buildings.
         /// </summary>
-        void IncrementAllUserResourcesBasedOnBuildings();
+        void IncrementAllUsersResourcesBasedOnBuildings();
     }
 }
