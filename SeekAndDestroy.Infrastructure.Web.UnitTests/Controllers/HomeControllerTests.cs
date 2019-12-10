@@ -33,7 +33,24 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
         [Test]
         public void SignInDoesNotCallCreateNewUserOnApiControllerIfUserIdIsNonZero()
         {
-            
+            // Arrange
+            const string OauthId = "1234";
+            const string EmailAddress = "test@test.com";
+
+            var userRepository = new Mock<IUserRepository>();
+            var buildingsRepository = new Mock<IBuildingsRepository>();
+            var resourcesRepository = new Mock<IResourcesRepository>();
+
+            userRepository.Setup(u => u.GetUserId(OauthId)).Returns(13);
+
+            var controller = new HomeController(new Mock<ILogger<HomeController>>().Object, userRepository.Object, buildingsRepository.Object, resourcesRepository.Object);
+            controller.MockUserClaims(OauthId, EmailAddress);            
+
+            // Act
+            controller.SignIn();
+
+            // Assert
+            userRepository.Verify(u => u.CreateUser(OauthId, EmailAddress), Times.Never());
         }
     }
 }
