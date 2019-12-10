@@ -19,6 +19,10 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
         [Test]
         public void SignInCallsCreateNewUserOnApiControllerIfUserIdIsZero()
         {
+            // Arrange
+            const string OauthId = "1234";
+            const string EmailAddress = "test@test.com";
+
             var userRepository = new Mock<IUserRepository>();
             var buildingsRepository = new Mock<IBuildingsRepository>();
             var resourcesRepository = new Mock<IResourcesRepository>();
@@ -29,10 +33,8 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
             var identities = new List<ClaimsIdentity>()
             {
                 new ClaimsIdentity(new List<Claim>() {
-                    new Claim(OAUTH_ID_CLAIM, "1234"),
-                    new Claim(EMAIL_ADDRESS_CLAIM, "test@test.com"),
-
-                    
+                    new Claim(OAUTH_ID_CLAIM, OauthId),
+                    new Claim(EMAIL_ADDRESS_CLAIM, EmailAddress),
                 }, "AuthenticationTypes.Federation"),
             };
 
@@ -45,7 +47,11 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
             controller.ControllerContext = new ControllerContext();
             controller.ControllerContext.HttpContext = httpContext;
 
+            // Act
             controller.SignIn();
+
+            // Assert
+            userRepository.Verify(u => u.CreateUser(OauthId, EmailAddress));
         }
 
         [Test]

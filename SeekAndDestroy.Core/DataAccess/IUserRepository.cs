@@ -10,7 +10,7 @@ namespace SeekAndDestroy.Core.DataAccess
         /// <summary>
         /// Get a user's ID. Probably returns zero if the user isn't in the DB.
         /// </summary>
-        int GetUserId(string emailAddress);
+        int GetUserId(string oauthId);
 
         /// <summary>
         /// Increment all user's resources depending on the number of buildings.

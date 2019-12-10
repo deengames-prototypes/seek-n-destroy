@@ -20,14 +20,14 @@ namespace SeekAndDestroy.Infrastructure.DataAccess.Repositories
                 connection.Execute("INSERT INTO users (oauth_id, email_address) VALUES (@oauthId, @emailAddress);", new { oauthId, emailAddress });
             }
 
-            return this.GetUserId(emailAddress);
+            return this.GetUserId(oauthId);
         }
 
-        public int GetUserId(string emailAddress)
+        public int GetUserId(string oauthId)
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
-                return connection.ExecuteScalar<int>("SELECT user_id FROM users WHERE email_address = @emailAddress;", new { emailAddress });
+                return connection.ExecuteScalar<int>("SELECT user_id FROM users WHERE oauth_id = @oauthId;", new { oauthId });
             }
         }
 

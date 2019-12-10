@@ -1,8 +1,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Npgsql;
-using Dapper;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using SeekAndDestroy.Core.DataAccess;
@@ -63,12 +61,8 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
             var oauthId = this.GetOAuth2Id();
             
             // Step 2: cross-reference the Users table to get our ID
-            using (var connection = new NpgsqlConnection(_configuration["ConnectionString"]))
-            {
-                // TODO: user repository pl0x
-                var userId = connection.ExecuteScalar<int>("SELECT user_id FROM users WHERE oauth_id = @oauthId", new { oauthId });
-                return userId;
-            }
+            var user = this._userRepository.GetUserId(oauthId);
+            return user;
         }
     }
 }
