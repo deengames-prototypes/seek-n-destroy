@@ -7,8 +7,9 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
 {
     public static class ControllerExtensions
     {
-        private const string OAUTH_ID_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
-        private const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+        internal const string CLAIM_TYPE = "AuthenticationTypes.Federation";
+        internal const string OAUTH_ID_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
+        internal const string EMAIL_ADDRESS_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
         public static void MockUserClaims(this Controller controller, string oauthId, string emailAddress)
         {
@@ -18,7 +19,7 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
                 new ClaimsIdentity(new List<Claim>() {
                     new Claim(OAUTH_ID_CLAIM, oauthId),
                     new Claim(EMAIL_ADDRESS_CLAIM, emailAddress),
-                }, "AuthenticationTypes.Federation"),
+                }, CLAIM_TYPE),
             };
 
             var httpContext = new DefaultHttpContext()
