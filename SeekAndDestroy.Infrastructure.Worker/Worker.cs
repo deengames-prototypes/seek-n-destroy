@@ -17,9 +17,6 @@ namespace SeekAndDestroy.Infrastructure.Worker
         {
             _logger = logger;
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-
-            // Run on execute
-            this.ExecuteAsync(new CancellationToken()).RunSynchronously();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
