@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using SeekAndDestroy.Core.DataAccess;
+using System.Collections.Generic;
+using SeekAndDestroy.Core.Enums;
 
 namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
 {
@@ -41,7 +43,13 @@ namespace SeekAndDestroy.Infrastructure.Web.Api.Controllers
             _resourcesRepository.InitializeForUser(userId);
         }
 
-        // TODO: move these methods somewhere more appropriate
+        [Authorize]
+        [HttpGet]
+        public Dictionary<ResourceType, int> GetResources()
+        {
+            return this._resourcesRepository.GetResources(this.GetUserId());
+        }
+
         public string GetOAuth2Id()
         {
             // Claims include: a unique identifier; first name, last name, picture, locale, and more.

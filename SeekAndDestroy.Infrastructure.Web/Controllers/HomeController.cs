@@ -47,8 +47,11 @@ namespace SeekAndDestroy.Infrastructure.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [Authorize]
+        public IActionResult Dashboard()
         {
+            var userController = new UserController(this.GetCurrentUserIdentity(), _userRepository, _buildingsRepository, _resourcesRepository);
+            ViewBag.Resources = userController.GetResources();
             return View();
         }
 

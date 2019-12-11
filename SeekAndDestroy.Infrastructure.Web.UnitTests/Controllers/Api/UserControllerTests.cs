@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Moq;
 using NUnit.Framework;
 using SeekAndDestroy.Core.DataAccess;
+using SeekAndDestroy.Core.Enums;
 using SeekAndDestroy.Infrastructure.Web.Api.Controllers;
 
 namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
@@ -89,6 +90,37 @@ namespace SeekAndDestroy.Infrastructure.Web.UnitTests.Controllers
             userRepository.Verify(u => u.CreateUser(oauthId, emailAddress));
             buildingsRepository.Verify(b => b.InitializeForUser(It.IsAny<int>()));
             resourcesRepository.Verify(r => r.InitializeForUser(It.IsAny<int>()));
+        }
+
+        [Test]
+        public void GetResourcesGetsResourcesFromResourcesRepository()
+        {
+            // Arrange
+            var oauthId = $"{Guid.NewGuid()} @ OAuth";
+            var emailAddress = $"user@{Guid.NewGuid()}.com";
+            
+            var identity = new ClaimsIdentity(new List<Claim>() {
+                new Claim(ControllerExtensions.OAUTH_ID_CLAIM, oauthId),
+                new Claim(ControllerExtensions.EMAIL_ADDRESS_CLAIM, emailAddress),
+            }, ControllerExtensions.CLAIM_TYPE);
+
+            var userRepository = new Mock<IUserRepository>();
+            var buildingsRepository = new Mock<IBuildingsRepository>();
+            var resourcesRepository = new Mock<IResourcesRepository>();
+
+            var expectedResources = new Dictionary<ResourceType, int>() {
+                { ResourceType.Crystals, 17 },
+            };
+
+            resourcesRepository.Setup(r => r.GetResources(It.IsAny<int>())).Returns(expectedResources);
+
+            var controller = new UserController(identity, userRepository.Object, buildingsRepository.Object, resourcesRepository.Object);
+
+            // Act
+            var actual = controller.GetResources();
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expectedResources));
         }
     }
 }

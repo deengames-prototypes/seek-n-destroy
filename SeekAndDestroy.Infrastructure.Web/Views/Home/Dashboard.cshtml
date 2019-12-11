@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<p>Resources:
+    <ul>
+    @{
+        foreach (var kvp in ViewBag.Resources)
+        {
+            <li>@kvp.Value x @kvp.Key</li>
+        }
+    }
+    </ul>
+</p>
